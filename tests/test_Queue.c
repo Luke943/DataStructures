@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "../include/Queue.h"
+#include "Queue.h"
 
 int main()
 {

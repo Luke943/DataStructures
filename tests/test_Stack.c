@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-#include "../include/Stack.h"
+#include "Stack.h"
 
 int main()
 {
