@@ -6,6 +6,8 @@ Data structures included:
 - Queue
 - Stack
 - Linked list
+- Doubly linked list
+- Binary search tree
 
 ## Contents
 
