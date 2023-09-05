@@ -6,7 +6,7 @@
 #define MIN_CAPACITY 16
 #define MAX(a, b) (a > b ? a : b)
 
-void _StackResize(Stack *stack)
+void _Stack_Resize(Stack *stack)
 {
     stack->capacity = MAX((size_t)(stack->size * 1.5), MIN_CAPACITY);
     stack->base = realloc(stack->base, sizeof(int) * stack->capacity);
@@ -17,7 +17,7 @@ void _StackResize(Stack *stack)
     }
 }
 
-Stack *StackCreate(int *data, size_t size)
+Stack *Stack_Create(int *data, size_t size)
 {
 
     Stack *stack = malloc(sizeof(Stack));
@@ -32,19 +32,19 @@ Stack *StackCreate(int *data, size_t size)
     return stack;
 }
 
-Stack *StackCreateEmpty()
+Stack *Stack_CreateEmpty()
 {
-    return StackCreate(NULL, 0);
+    return Stack_Create(NULL, 0);
 }
 
-void StackPush(Stack *stack, int value)
+void Stack_Push(Stack *stack, int value)
 {
     if (stack->size == stack->capacity)
-        _StackResize(stack);
+        _Stack_Resize(stack);
     stack->base[stack->size++] = value;
 }
 
-int StackPop(Stack *stack)
+int Stack_Pop(Stack *stack)
 {
     if (stack->size == 0)
     {
@@ -54,12 +54,12 @@ int StackPop(Stack *stack)
     int value = stack->base[--stack->size];
     if (stack->size < stack->capacity / 2 && stack->capacity > MIN_CAPACITY)
     {
-        _StackResize(stack);
+        _Stack_Resize(stack);
     }
     return value;
 }
 
-int StackPeek(Stack *stack)
+int Stack_Peek(Stack *stack)
 {
     if (stack->size == 0)
     {
@@ -69,25 +69,25 @@ int StackPeek(Stack *stack)
     return stack->base[stack->size - 1];
 }
 
-bool StackIsEmpty(Stack *stack)
+bool Stack_IsEmpty(Stack *stack)
 {
     return stack->size == 0;
 }
 
-void StackClear(Stack *stack)
+void Stack_Clear(Stack *stack)
 {
     stack->size = 0;
-    _StackResize(stack);
+    _Stack_Resize(stack);
 }
 
-void StackDestroy(Stack *stack)
+void Stack_Destroy(Stack *stack)
 {
     free(stack->base);
     free(stack);
     stack = NULL;
 }
 
-void StackPrint(Stack *stack)
+void Stack_Print(Stack *stack)
 {
     printf("(");
     for (int i = 0; i < stack->size; i++)

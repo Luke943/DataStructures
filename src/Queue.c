@@ -24,7 +24,7 @@ void _QueueResize(Queue *q)
     }
 }
 
-Queue *QueueCreate(int *data, size_t size)
+Queue *Queue_Create(int *data, size_t size)
 {
     Queue *q = (Queue *)malloc(sizeof(Queue));
     q->buffer = data;
@@ -34,12 +34,12 @@ Queue *QueueCreate(int *data, size_t size)
     return q;
 }
 
-Queue *QueueCreateEmpty()
+Queue *Queue_CreateEmpty()
 {
-    return QueueCreate(NULL, 0);
+    return Queue_Create(NULL, 0);
 }
 
-void QueueEnqueue(Queue *q, int value)
+void Queue_Enqueue(Queue *q, int value)
 {
     if (q->back == q->capacity)
     {
@@ -48,7 +48,7 @@ void QueueEnqueue(Queue *q, int value)
     q->buffer[q->back++] = value;
 }
 
-int QueueDequeue(Queue *q)
+int Queue_Dequeue(Queue *q)
 {
     if (q->front == q->back)
     {
@@ -67,22 +67,22 @@ int QueueDequeue(Queue *q)
     return value;
 }
 
-int QueueFront(Queue *q)
+int Queue_Front(Queue *q)
 {
     return q->buffer[q->front];
 }
 
-size_t QueueSize(Queue *q)
+size_t Queue_Size(Queue *q)
 {
     return q->back - q->front;
 }
 
-bool QueueIsEmpty(Queue *q)
+bool Queue_IsEmpty(Queue *q)
 {
     return q->front == q->back;
 }
 
-void QueueDestroy(Queue *q)
+void Queue_Destroy(Queue *q)
 {
     free(q->buffer);
     free(q);

@@ -13,11 +13,11 @@ typedef struct Queue
     int *buffer;
 } Queue;
 
-Queue *QueueCreate(int *data, size_t size);
-Queue *QueueCreateEmpty();
-void QueueEnqueue(Queue *q, int value);
-int QueueDequeue(Queue *q);
-int QueueFront(Queue *q);
-size_t QueueSize(Queue *q);
-bool QueueIsEmpty(Queue *q);
-void QueueDestroy(Queue *q);
+Queue *Queue_Create(int *data, size_t size);
+Queue *Queue_CreateEmpty();
+void Queue_Enqueue(Queue *q, int value);
+int Queue_Dequeue(Queue *q);
+int Queue_Front(Queue *q);
+size_t Queue_Size(Queue *q);
+bool Queue_IsEmpty(Queue *q);
+void Queue_Destroy(Queue *q);
