@@ -24,7 +24,7 @@ void _QueueResize(Queue *q)
     }
 }
 
-Queue *QueueCreate(int *data, int size)
+Queue *QueueCreate(int *data, size_t size)
 {
     Queue *q = (Queue *)malloc(sizeof(Queue));
     q->buffer = data;
@@ -72,7 +72,7 @@ int QueueFront(Queue *q)
     return q->buffer[q->front];
 }
 
-int QueueSize(Queue *q)
+size_t QueueSize(Queue *q)
 {
     return q->back - q->front;
 }

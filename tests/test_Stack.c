@@ -15,7 +15,7 @@ int main()
 
     // Print the top element and stack size
     printf("Top element: %d\n", StackPeek(stack));
-    printf("Stack size: %d\n", stack->size);
+    printf("Stack size: %zu\n", stack->size);
 
     // Pop and print elements from the stack
     while (!StackIsEmpty(stack))

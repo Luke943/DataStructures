@@ -15,7 +15,7 @@ int main()
 
     // Print the front element and the queue size
     printf("Front element: %d\n", QueueFront(q));
-    printf("Queue size: %d\n", QueueSize(q));
+    printf("Queue size: %zu\n", QueueSize(q));
 
     // Dequeue elements and print them
     while (!QueueIsEmpty(q))

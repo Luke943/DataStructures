@@ -1,18 +1,17 @@
 // Functionality of a stack implemented for type int
 
-#ifndef STACK_H
-#define STACK_H
+#pragma once
 
 #include <stdbool.h>
 
 typedef struct Stack
 {
-    int size;
-    int capacity;
-    int *base; // int specific
+    size_t size;
+    size_t capacity;
+    int *base;
 } Stack;
 
-Stack *StackCreate(int *data, int size);
+Stack *StackCreate(int *data, size_t size);
 Stack *StackCreateEmpty();
 void StackPush(Stack *stack, int value);
 int StackPop(Stack *stack);
@@ -21,5 +20,3 @@ bool StackIsEmpty(Stack *stack);
 void StackClear(Stack *stack);
 void StackDestroy(Stack *stack);
 void StackPrint(Stack *stack);
-
-#endif // STACK_H

@@ -8,7 +8,7 @@
 
 void _StackResize(Stack *stack)
 {
-    stack->capacity = MAX((int)(stack->size * 1.5), MIN_CAPACITY);
+    stack->capacity = MAX((size_t)(stack->size * 1.5), MIN_CAPACITY);
     stack->base = realloc(stack->base, sizeof(int) * stack->capacity);
     if (!stack->base)
     {
@@ -17,7 +17,7 @@ void _StackResize(Stack *stack)
     }
 }
 
-Stack *StackCreate(int *data, int size)
+Stack *StackCreate(int *data, size_t size)
 {
 
     Stack *stack = malloc(sizeof(Stack));
