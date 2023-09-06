@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
-#include "Trie.h" // Replace with the actual name of your header file
+#include "Trie.h"
 
 int main()
 {
