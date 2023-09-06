@@ -29,4 +29,5 @@ size_t BST_FindMaxHeight(BST *tree);
 bool BST_IsBalanced(BST *tree);
 void BST_InOrder(BST *tree, int *dest);    // buffer must be of size tree->size
 void BST_LevelOrder(BST *tree, int *dest); // buffer must be of size tree->size
+bool BST_Remove(BST *tree, int value);
 void BST_Destroy(BST *tree);

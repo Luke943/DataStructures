@@ -148,8 +148,6 @@ void _BST_InOrder(BSTNode *node, int *buffer, size_t *p_index)
 
 void BST_InOrder(BST *tree, int *dest) // buffer must be of size tree->size
 {
-    if (!tree->root)
-        return;
     size_t index = 0;
     _BST_InOrder(tree->root, dest, &index);
 }
@@ -180,28 +178,47 @@ void BST_LevelOrder(BST *tree, int *dest) // buffer must be of size tree->size
     free(queue);
 }
 
-// TODO
-// bool BST_Remove(BST *tree, int value)
-// {
-//     BSTNode *parent = NULL;
-//     BSTNode *node = tree->root;
-//     while (node)
-//     {
-//         if (node->value == value)
-//             break;
-//         parent = node;
-//         if (value < node->value)
-//             node = node->left;
-//         else
-//             node = node->right;
-//     }
-//     if (!node)
-//         return false;
-//     if (!parent)
-//         tree->root = node->right;
-
-//     return true;
-// }
+bool BST_Remove(BST *tree, int value)
+{
+    BSTNode **p_node = &(tree->root);
+    while (*p_node)
+    {
+        if (value < (*p_node)->value)
+            p_node = &((*p_node)->left);
+        else if (value > (*p_node)->value)
+            p_node = &((*p_node)->right);
+        else
+            break;
+    }
+    if (!*p_node)
+        return false;
+    tree->size--;
+    BSTNode *node = *p_node;
+    if (node->left && node->right)
+    {
+        BSTNode **p_min_node = &(node->right);
+        while ((*p_min_node)->left)
+            p_min_node = &((*p_min_node)->left);
+        BSTNode *min_node = *p_min_node;
+        node->value = min_node->value;
+        if (min_node->right)
+            *p_min_node = min_node->right;
+        else
+            *p_min_node = NULL;
+        free(min_node);
+        return true;
+    }
+    if (!node->left && !node->right)
+        *p_node = NULL;
+    else if (!node->left)
+        *p_node = node->right;
+    else if (!node->right)
+        *p_node = node->left;
+    if (node == tree->root)
+        tree->root = *p_node;
+    free(node);
+    return true;
+}
 
 void _BST_DestroySubtree(BSTNode *node)
 {
