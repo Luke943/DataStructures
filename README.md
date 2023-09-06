@@ -8,6 +8,7 @@ Data structures included:
 - Linked list
 - Doubly linked list
 - Binary search tree
+- Trie
 
 ## Contents
 
