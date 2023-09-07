@@ -1,3 +1,6 @@
+// Trie structure for storing words
+// Words must be null terminated strings containing letters
+
 #pragma once
 
 #include <stdbool.h>
