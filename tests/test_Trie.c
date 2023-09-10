@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <string.h>
+#include <assert.h>
 #include "Trie.h"
 
 int main()
@@ -15,20 +16,22 @@ int main()
     Trie_Insert(trie, "batman");
 
     // Check if words exist in the Trie
-    printf("Trie Contains 'apple': %s\n", Trie_Contains(trie, "apple") ? "Yes" : "No");
-    printf("Trie Contains 'banana': %s\n", Trie_Contains(trie, "banana") ? "Yes" : "No");
-    printf("Trie Contains 'app': %s\n", Trie_Contains(trie, "app") ? "Yes" : "No");
-    printf("Trie Contains 'bat': %s\n", Trie_Contains(trie, "bat") ? "Yes" : "No");
-    printf("Trie Contains 'batman': %s\n", Trie_Contains(trie, "batman") ? "Yes" : "No");
-    printf("Trie Contains 'cat': %s\n", Trie_Contains(trie, "cat") ? "Yes" : "No");
+    assert(Trie_Contains(trie, "apple") == true);
+    assert(Trie_Contains(trie, "banana") == true);
+    assert(Trie_Contains(trie, "app") == true);
+    assert(Trie_Contains(trie, "bat") == true);
+    assert(Trie_Contains(trie, "batman") == true);
+    assert(Trie_Contains(trie, "cat") == false);
 
     // Print the Trie and get the number of words printed
     printf("Trie Contents:\n");
     int wordsPrinted = Trie_Print(trie);
-    printf("Number of words printed: %d\n", wordsPrinted);
+    assert(wordsPrinted == 5);
 
     // Clean up and destroy the Trie
     Trie_Destroy(trie);
+
+    printf("All tests passed!\n");
 
     return 0;
 }
