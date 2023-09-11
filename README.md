@@ -10,6 +10,7 @@ Data structures included:
 - Binary search tree
 - Trie
 - MaxHeap (with HeapSort function for arrays)
+- Hash table (for string keys and values)
 
 ## Contents
 
