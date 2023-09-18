@@ -6,7 +6,7 @@
 #define MIN_CAPACITY 16
 #define MAX(a, b) (a > b ? a : b)
 
-void _Stack_Resize(Stack *stack)
+static void Stack_Resize_(Stack *stack)
 {
     stack->capacity = MAX((size_t)(stack->size * 1.5), MIN_CAPACITY);
     stack->base = realloc(stack->base, sizeof(int) * stack->capacity);
@@ -40,7 +40,7 @@ Stack *Stack_CreateEmpty()
 void Stack_Push(Stack *stack, int value)
 {
     if (stack->size == stack->capacity)
-        _Stack_Resize(stack);
+        Stack_Resize_(stack);
     stack->base[stack->size++] = value;
 }
 
@@ -54,7 +54,7 @@ int Stack_Pop(Stack *stack)
     int value = stack->base[--stack->size];
     if (stack->size < stack->capacity / 2 && stack->capacity > MIN_CAPACITY)
     {
-        _Stack_Resize(stack);
+        Stack_Resize_(stack);
     }
     return value;
 }
@@ -77,7 +77,7 @@ bool Stack_IsEmpty(Stack *stack)
 void Stack_Clear(Stack *stack)
 {
     stack->size = 0;
-    _Stack_Resize(stack);
+    Stack_Resize_(stack);
 }
 
 void Stack_Destroy(Stack *stack)

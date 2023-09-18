@@ -6,14 +6,14 @@
 #define MIN_CAPACITY 16
 #define MAX(a, b) (a > b ? a : b)
 
-void _QueueShift(Queue *q)
+static void Queue_Shift_(Queue *q)
 {
     memcpy(q->buffer, q->buffer + q->front, (q->back - q->front) * sizeof(int));
     q->back -= q->front;
     q->front = 0;
 }
 
-void _QueueResize(Queue *q)
+static void Queue_Resize_(Queue *q)
 {
     q->capacity = MAX(q->front + (q->back - q->front) * 1.5, MIN_CAPACITY);
     q->buffer = (int *)realloc(q->buffer, q->capacity * sizeof(int));
@@ -43,7 +43,7 @@ void Queue_Enqueue(Queue *q, int value)
 {
     if (q->back == q->capacity)
     {
-        _QueueResize(q);
+        Queue_Resize_(q);
     }
     q->buffer[q->back++] = value;
 }
@@ -58,11 +58,11 @@ int Queue_Dequeue(Queue *q)
     int value = q->buffer[q->front++];
     if (q->front > MAX(q->capacity, MIN_CAPACITY) / 4)
     {
-        _QueueShift(q);
+        Queue_Shift_(q);
     }
     if (q->back < q->capacity / 2 && q->back > MIN_CAPACITY)
     {
-        _QueueResize(q);
+        Queue_Resize_(q);
     }
     return value;
 }

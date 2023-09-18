@@ -88,7 +88,7 @@ bool BST_IsPresent(BST *tree, int value)
     return false;
 }
 
-bool _BST_IsBST(BSTNode *node)
+static bool BST_IsBST_(BSTNode *node)
 {
     if (!node)
         return true;
@@ -96,12 +96,12 @@ bool _BST_IsBST(BSTNode *node)
         return false;
     if (node->right && node->right->value <= node->value)
         return false;
-    return _BST_IsBST(node->left) && _BST_IsBST(node->right);
+    return BST_IsBST_(node->left) && BST_IsBST_(node->right);
 }
 
 bool BST_IsBST(BST *tree)
 {
-    return _BST_IsBST(tree->root);
+    return BST_IsBST_(tree->root);
 }
 
 size_t _BST_FindMinHeight(BSTNode *node)
@@ -137,19 +137,19 @@ bool BST_IsBalanced(BST *tree)
     return BST_FindMinHeight(tree) + 1 >= BST_FindMaxHeight(tree);
 }
 
-void _BST_InOrder(BSTNode *node, int *buffer, size_t *p_index)
+static void BST_InOrder_(BSTNode *node, int *buffer, size_t *p_index)
 {
     if (!node)
         return;
-    _BST_InOrder(node->left, buffer, p_index);
+    BST_InOrder_(node->left, buffer, p_index);
     buffer[(*p_index)++] = node->value;
-    _BST_InOrder(node->right, buffer, p_index);
+    BST_InOrder_(node->right, buffer, p_index);
 }
 
 void BST_InOrder(BST *tree, int *dest) // buffer must be of size tree->size
 {
     size_t index = 0;
-    _BST_InOrder(tree->root, dest, &index);
+    BST_InOrder_(tree->root, dest, &index);
 }
 
 void BST_LevelOrder(BST *tree, int *dest) // buffer must be of size tree->size
@@ -220,17 +220,17 @@ bool BST_Remove(BST *tree, int value)
     return true;
 }
 
-void _BST_DestroySubtree(BSTNode *node)
+static void BST_DestroySubtree_(BSTNode *node)
 {
     if (!node)
         return;
-    _BST_DestroySubtree(node->left);
-    _BST_DestroySubtree(node->right);
+    BST_DestroySubtree_(node->left);
+    BST_DestroySubtree_(node->right);
     free(node);
 }
 
 void BST_Destroy(BST *tree)
 {
-    _BST_DestroySubtree(tree->root);
+    BST_DestroySubtree_(tree->root);
     free(tree);
 }

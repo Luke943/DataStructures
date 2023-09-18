@@ -3,7 +3,7 @@
 #include <ctype.h>
 #include "Trie.h"
 
-TrieNode *_Trie_CreateNode()
+static TrieNode *Trie_CreateNode_()
 {
     TrieNode *node = (TrieNode *)malloc(sizeof(TrieNode));
     if (!node)
@@ -25,7 +25,7 @@ Trie *Trie_Create()
         fprintf(stderr, "Failed to allocate memory for Trie\n");
         exit(1);
     }
-    trie->root = _Trie_CreateNode();
+    trie->root = Trie_CreateNode_();
     return trie;
 }
 
@@ -41,7 +41,7 @@ bool Trie_Insert(Trie *trie, const char *word)
             exit(1);
         }
         if (!node->children[j])
-            node->children[j] = _Trie_CreateNode();
+            node->children[j] = Trie_CreateNode_();
         node = node->children[j];
     }
     node->isWord = true;
@@ -66,7 +66,7 @@ bool Trie_Contains(Trie *trie, const char *word)
     return node->isWord;
 }
 
-void _Trie_PrintNode(TrieNode *node, char *buffer, int level, int *p_count)
+static void Trie_PrintNode_(TrieNode *node, char *buffer, int level, int *p_count)
 {
     if (!node)
         return;
@@ -79,7 +79,7 @@ void _Trie_PrintNode(TrieNode *node, char *buffer, int level, int *p_count)
     for (int i = 0; i < 26; i++)
     {
         buffer[level] = (char)('a' + i);
-        _Trie_PrintNode(node->children[i], buffer, level + 1, p_count);
+        Trie_PrintNode_(node->children[i], buffer, level + 1, p_count);
     }
 }
 
@@ -88,22 +88,22 @@ int Trie_Print(Trie *trie)
     char buffer[45]; // assume 45 is the max length of a word
     int level = 0;
     int count = 0;
-    _Trie_PrintNode(trie->root, buffer, level, &count);
+    Trie_PrintNode_(trie->root, buffer, level, &count);
     return count;
 }
 
-void _Trie_DestroySubTree(TrieNode *node)
+static void Trie_DestroySubTree_(TrieNode *node)
 {
     if (!node)
         return;
     for (int i = 0; i < 26; i++)
-        _Trie_DestroySubTree(node->children[i]);
+        Trie_DestroySubTree_(node->children[i]);
     free(node);
 }
 
 void Trie_Destroy(Trie *trie)
 {
-    _Trie_DestroySubTree(trie->root);
+    Trie_DestroySubTree_(trie->root);
     free(trie);
     trie = NULL;
 }

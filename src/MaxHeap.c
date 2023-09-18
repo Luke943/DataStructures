@@ -19,7 +19,7 @@ MaxHeap *MaxHeap_Create()
     return heap;
 }
 
-void _MaxHeap_Resize(MaxHeap *heap, size_t new_capacity)
+static void MaxHeap_Resize_(MaxHeap *heap, size_t new_capacity)
 {
     heap->capacity = new_capacity;
     heap->data = (int *)realloc(heap->data, heap->capacity * sizeof(int));
@@ -33,7 +33,7 @@ void _MaxHeap_Resize(MaxHeap *heap, size_t new_capacity)
 void MaxHeap_Push(MaxHeap *heap, int value)
 {
     if (heap->size == heap->capacity)
-        _MaxHeap_Resize(heap, heap->capacity * 2);
+        MaxHeap_Resize_(heap, heap->capacity * 2);
     heap->data[heap->size++] = value;
     int index = heap->size - 1;
     int parent = (index - 1) / 2;
@@ -47,7 +47,7 @@ void MaxHeap_Push(MaxHeap *heap, int value)
     }
 }
 
-void _MaxHeap_IntegrateRoot(MaxHeap *heap)
+static void MaxHeap_IntegrateRoot_(MaxHeap *heap)
 {
     int index = 0;
     while (1)
@@ -87,9 +87,9 @@ int MaxHeap_Pop(MaxHeap *heap)
     heap->size--;
     if (heap->size < heap->capacity / 4 && heap->capacity > MIN_CAPACITY)
     {
-        _MaxHeap_Resize(heap, MAX(heap->capacity / 2, MIN_CAPACITY));
+        MaxHeap_Resize_(heap, MAX(heap->capacity / 2, MIN_CAPACITY));
     }
-    _MaxHeap_IntegrateRoot(heap);
+    MaxHeap_IntegrateRoot_(heap);
     return value;
 }
 
@@ -97,7 +97,7 @@ int MaxHeap_PushPop(MaxHeap *heap, int value)
 {
     int popped_value = heap->data[0];
     heap->data[0] = value;
-    _MaxHeap_IntegrateRoot(heap);
+    MaxHeap_IntegrateRoot_(heap);
     return popped_value;
 }
 
